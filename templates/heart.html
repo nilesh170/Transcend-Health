@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer/">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+        }
+
+        header {
+            height: 50px;
+        }
+
+        footer {
+            height: 75px;
+            background: black;
+        }
+
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            padding: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        @media screen and (max-width: 999px) {
+        h2{
+            display: none;
+        }}
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary"
+        style=" background: linear-gradient(to right, #00c6ff, #0072ff) !important; height: 80px;">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename = 'logo.png') }} " height="70px" width="85px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <center>
+                <h1 style=" color:white; transform:translateX(250px); padding-left: 210px; text-decoration: none;">Transcend Healthcare </h1>
+            </center>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"
+                    style="padding: right 10px; color: blue; font-size: large; text-decoration: none;">
+                    <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item active" style="font-size: large; text-decoration: none; ">
+                    <a class="nav-link" href="{{ url_for('diabetesPage') }}">Diabetes</a>
+                </li>
+                <li class="nav-item active" style="font-size: large; text-decoration: none;">
+                    <a class="nav-link" href="{{ url_for('heartPage') }}">Heart</a>
+                </li>
+                <li class="nav-item active" style="font-size: large; text-decoration: none;">
+                    <a class="nav-link" href="{{ url_for('kidneyPage') }}">Kidney</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <main>
+        <div class="row" style="margin-bottom: 175px;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <center>
+                    <h1>Heart Disease Prediction</h1>
+                    <br>
+                </center>
+                <div class="card card-body" style="border: 1px solid black; border-radius: 1em;">
+                    <form class="form-horizontal" action="/predict" method="POST">
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="age" placeholder="Age" min = 0 max = 90 required  style="width: 250px;"/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <p> Gender : </p>
+                                    <label for="">Male</label> <input name = "sex" value = 1 type = "radio" style="width: 73px;" />  <br> 
+                                    <label for="">Female</label><input name = "sex"  value = 0 type = "radio" style="width: 50px;" /> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for=""> 
+                                        <select id="cp" name="cp" style="width: 250px;">
+                                          <option selected>-- Select Chest Pain Type --</option>
+                                          <option value=0>Typical Angina</option>
+                                          <option value=1>Atypical Angina</option>
+                                          <option value=2>Non-anginal Pain</option>
+                                          <option value=3>Asymtomatic</option>
+                                        </select><br> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number"  id="bps" name="trestbps" placeholder="Resting BP" min = 90 max = 200 style="width: 250px;" ><br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" id="chol" name="chol" placeholder="Serum Cholesterol" min = 100 max = 600 style="width: 250px;" ><br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        <select id="restecg" name="restecg" style="width: 250px;">
+                                            <option selected>-- Select Resting ECG Results --</option>
+                                            <option value=0>Normal</option>
+                                            <option value=1>Having ST-T wave abnormality</option>
+                                            <option value=2>Probable or definite left ventricular hypertrophy</option>
+                                        </select><br> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                            
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" id="thalach" name="thalach" min = 50 max = 250 placeholder="Max Heart Rate" style="width: 250px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <p> Exercise-induced Angina : </p>
+                                    <label for="">Yes</label> <input name = "eia" value = 1 type = "radio" style="width: 67px;" />  <br> 
+                                    <label for="">No</label><input name = "eia"  value = 0 type = "radio" style="width: 80px;" /> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                            
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" id="oldpeak" name="oldpeak" step = "any" min=0.0 max = 7.0 placeholder="ST depression" style="width: 250px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="slope">
+                                        <select id="slope" name="slope"  style="width: 250px;">
+                                          <option selected>-- Slope ST segment --</option>
+                                          <option value=0>Upsloping</option>
+                                          <option value=1>Flat</option>
+                                          <option value=2>Downsloping</option>
+                                        </select><br> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ca">
+                                        <select id="ca" name="ca" style="width: 250px;" >
+                                          <option>-- Number of Major vessels --</option>
+                                          <option value=0>0</option>
+                                          <option value=1>1</option> 
+                                          <option value=2>2</option>  
+                                          <option value=3>3</option>
+                                          <option value=4>4</option>
+                                        </select><br> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="thal">
+                                        <select id="thal" name="thal" style="width: 250px;" >
+                                          <option>-- Select Thalassemia Value --</option>
+                                          <option value=0>NULL</option>
+                                          <option value=1>Fixed Defect</option>
+                                          <option value=2>Normal</option> 
+                                          <option value=3>Reversible Defect</option>  
+                                        </select><br> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-info btn-block"  style = "background-color: #51B6B6;
+                                    color: #fff;
+                                    text-shadow: 0 0 2px #fff;
+                                    width: 150px;
+                                    margin-left: 40px;
+                                    box-shadow: 2px 2px black;" value="Predict">
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </main>
+</body>
+</html>

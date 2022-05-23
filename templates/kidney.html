@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Disease Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer/">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+        }
+
+        header {
+            height: 50px;
+        }
+
+        footer {
+            height: 75px;
+            background: black;
+        }
+
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            padding: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        @media screen and (max-width: 999px) {
+        h2{
+            display: none;
+        }}
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary"
+        style=" background: linear-gradient(to right, #00c6ff, #0072ff) !important; height: 80px;">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename = 'logo.png') }} " height="70px" width="85px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <center>
+                <h1 style=" color:white; transform:translateX(250px); padding-left: 210px; text-decoration: none;">Transcend Healthcare </h1>
+            </center>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"
+                    style="padding: right 10px; color: blue; font-size: large; text-decoration: none;">
+                    <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item active" style="font-size: large; text-decoration: none; ">
+                    <a class="nav-link" href="{{ url_for('diabetesPage') }}">Diabetes</a>
+                </li>
+                <li class="nav-item active" style="font-size: large; text-decoration: none;">
+                    <a class="nav-link" href="{{ url_for('heartPage') }}">Heart</a>
+                </li>
+                <li class="nav-item active" style="font-size: large; text-decoration: none;">
+                    <a class="nav-link" href="{{ url_for('kidneyPage') }}">Kidney</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <main>
+        <div class="row" style="margin-bottom: 175px;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <center>
+                    <h1>Kidney Disease Prediction</h1>
+                    <br>
+                </center>
+                <div class="card card-body" style="border: 1px solid black; border-radius: 1em;">
+                    <form class="form-horizontal" action="/predict" method="POST">
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="Specific Gravity" placeholder="Specific Gravity" step="any" min = 1.000 max = 1.050 required  />
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <p> Diabetes Mellitus : </p>
+                                    <label for="">Yes</label> <input name = "dm" value = 1 type = "radio" style="width: 67px;" />  <br> 
+                                    <label for="">No</label><input name = "dm"  value = 0 type = "radio" style="width: 80px;" /> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="Hemoglobin" placeholder="Hemoglobin (in years)" step = "any" min = 00 max = 30.0 required style="width: 190px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <p>Pedal Edema : </p>
+                                    <label for="">Yes</label> <input name = "pe" value = 1 type = "radio" style="width: 67px;" />  <br> 
+                                    <label for="">No</label><input name = "pe"  value = 0 type = "radio" style="width: 80px;" /> </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <p>Pus Cell : </p>
+                                    <label for="">Yes</label> <input name = "pc" value = 1 type = "radio" style="width: 67px;" />  <br> 
+                                    <label for="">No</label><input name = "pc"  value = 0 type = "radio" style="width: 80px;" /> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="Red Blood Cell Count" placeholder="Red Blood Cell Count" step = "any" min = 0.0 max = 8.0 required  style="width: 190px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <p>Anemia : </p>
+                                    <label for="">Yes</label> <input name = "ane" value = 1 type = "radio" style="width: 67px;" />  <br> 
+                                    <label for="">No</label><input name = "ane"  value = 0 type = "radio" style="width: 80px;" /> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="Blood Urea" placeholder="Blood Urea" step = "any" min = 0.0 max = 400.0 required  style="width: 190px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="sod" placeholder="Sodium" step = "any" min = 0.0 max = 200.0 required  style="width: 190px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="number" name="bgr" placeholder="Blood Glucose Random" step="any" min = 20.0 max = 500.0 required  style="width: 190px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-info btn-block"  style = "background-color: #51B6B6;
+                                    color: #fff;
+                                    text-shadow: 0 0 2px #fff;
+                                    width: 150px;
+                                    margin-left: 50px;
+                                    box-shadow: 2px 2px black;" value="Predict">
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </main>
+</body>
+</html>
